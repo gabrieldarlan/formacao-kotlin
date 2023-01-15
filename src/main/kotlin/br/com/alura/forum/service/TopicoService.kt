@@ -11,6 +11,7 @@ import br.com.alura.forum.repository.TopicoRepository
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.Pageable
 import org.springframework.stereotype.Service
+import java.time.LocalDateTime
 import java.util.stream.Collectors
 import javax.persistence.EntityManager
 
@@ -20,14 +21,12 @@ class TopicoService(
     private val topicoViewMapper: TopicoViewMapper,
     private val topicoFormMapper: TopicoFormMapper,
     private val notFoundMessage: String = "Topico nao encontrado!",
-    private val em: EntityManager,
 ) {
 
     fun listar(
         nomeCurso: String?,
         paginacao: Pageable,
     ): Page<TopicoView> {
-        println(em)
         val topicos = if (nomeCurso.isNullOrBlank()) {
             repository.findAll(paginacao)
         } else {
@@ -55,6 +54,7 @@ class TopicoService(
             .orElseThrow { NotFoundException(notFoundMessage) }
         topico.titulo = form.titulo
         topico.mensagem = form.mensagem
+        topico.dataAlteracao = LocalDateTime.now()
         return topicoViewMapper.map(topico)
     }
 

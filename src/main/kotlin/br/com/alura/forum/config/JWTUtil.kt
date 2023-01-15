@@ -17,7 +17,7 @@ class JWTUtil(
 ) {
 
 
-    private val expiration: Long = 60000L
+    private val expiration: Long = 120000
 
     @Value("\${jwt.secret}")
     private lateinit var secret: String
