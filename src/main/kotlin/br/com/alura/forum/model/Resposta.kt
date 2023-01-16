@@ -1,6 +1,5 @@
 package br.com.alura.forum.model
 
-import java.time.LocalDate
 import java.time.LocalDateTime
 import javax.persistence.*
 
@@ -14,5 +13,5 @@ data class Resposta(
         val autor: Usuario,
         @ManyToOne
         val topico: Topico,
-        val solucao: Boolean
+        val solucao: Boolean,
 )
